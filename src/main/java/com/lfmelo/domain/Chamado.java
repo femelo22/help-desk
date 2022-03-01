@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.lfmelo.enums.EPrioridade;
 import com.lfmelo.enums.EStatus;
 
-@Entity
+@Entity(name = "TB_CHAMADO")
 public class Chamado implements Serializable {
 	private static final long serialVersionUID = 1L;
 	

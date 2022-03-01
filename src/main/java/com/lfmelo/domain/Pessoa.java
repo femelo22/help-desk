@@ -39,7 +39,7 @@ public abstract class Pessoa implements Serializable {
 	protected String senha;
 	
 	@ElementCollection(fetch = FetchType.EAGER) //assegura que a lista de perfis virá junto ao usuário
-	@CollectionTable(name = "PERFIS")
+	@CollectionTable(name = "TB_PERFIS")
 	protected Set<Integer> perfis = new HashSet<>();
 	
 	@Column(name = "data_criacao")
