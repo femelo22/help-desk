@@ -1,5 +1,7 @@
 package com.lfmelo.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,5 +17,9 @@ public class TecnicoService {
 	
 	public Tecnico findById(Integer id) {
 		return this.repository.findById(id).orElseThrow(() -> new NotFoundException("Objeto não encontrado de id " + id));
+	}
+	
+	public List<Tecnico> findAll() {
+		return this.repository.findAll();
 	}
 }

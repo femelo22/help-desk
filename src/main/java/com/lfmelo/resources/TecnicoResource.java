@@ -1,5 +1,7 @@
 package com.lfmelo.resources;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +24,13 @@ public class TecnicoResource {
 	@GetMapping(value = "/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<Tecnico> findById(@PathVariable Integer id) {	
-		return ResponseEntity.ok().body(service.findById(id));
+		return ResponseEntity.ok().body(this.service.findById(id));
+	}
+	
+	@GetMapping
+	@ResponseStatus(HttpStatus.OK)
+	public ResponseEntity<List<Tecnico>> findAll() {
+		return ResponseEntity.ok().body(this.service.findAll());
 	}
 	
 	
