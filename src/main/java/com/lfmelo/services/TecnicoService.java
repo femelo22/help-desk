@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lfmelo.domain.Tecnico;
+import com.lfmelo.exceptions.NotFoundException;
 import com.lfmelo.repositories.TecnicoRepository;
 
 @Service
@@ -13,6 +14,6 @@ public class TecnicoService {
 	private TecnicoRepository repository;
 	
 	public Tecnico findById(Integer id) {
-		return this.repository.findById(id).orElseThrow();
+		return this.repository.findById(id).orElseThrow(() -> new NotFoundException("Objeto não encontrado de id " + id));
 	}
 }

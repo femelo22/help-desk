@@ -24,5 +24,8 @@ public class TecnicoResource {
 	public ResponseEntity<Tecnico> findById(@PathVariable Integer id) {	
 		return ResponseEntity.ok().body(service.findById(id));
 	}
+	
+	
+	
 
 }
