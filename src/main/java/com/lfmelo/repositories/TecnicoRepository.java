@@ -6,4 +6,7 @@ import com.lfmelo.domain.Tecnico;
 
 public interface TecnicoRepository extends JpaRepository<Tecnico, Integer>{
 
+	boolean existsByCpf(String cpf);
+	boolean existsByEmail(String email);
+
 }
