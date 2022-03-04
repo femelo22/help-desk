@@ -2,25 +2,35 @@ package com.lfmelo.dtos;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
+
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.br.CPF;
 
 import com.lfmelo.enums.EPerfil;
 
 public class TecnicoDTO {
 	
 	
+	@NotNull(message = "O campo NOME é requerido")
 	protected String nome;
 	
+	@NotNull(message = "O campo CPF é requerido")
+	@CPF
 	protected String cpf;
 	
+	@NotNull(message = "O campo EMAIL é requerido")
 	protected String email;
 	
+	@NotNull(message = "O campo SENHA é requerido")
 	protected String senha;
 	
 	protected Set<Integer> perfis = new HashSet<>();
 	
 	public TecnicoDTO() {
 		super();
-		perfis.add(EPerfil.CLIENTE.getCode());
+		addPerfil(EPerfil.CLIENTE);
 	}
 
 	public String getNome() {
@@ -55,12 +65,12 @@ public class TecnicoDTO {
 		this.senha = senha;
 	}
 
-	public Set<Integer> getPerfis() {
-		return perfis;
+	public Set<EPerfil> getPerfis() {
+		return perfis.stream().map(x -> EPerfil.toEnum(x)).collect(Collectors.toSet());
 	}
 
-	public void setPerfis(Set<Integer> perfis) {
-		this.perfis = perfis;
+	public void addPerfil(EPerfil perfil) {
+		this.perfis.add(perfil.getCode());
 	}
 	
 	
