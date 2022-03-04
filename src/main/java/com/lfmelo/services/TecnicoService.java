@@ -22,4 +22,10 @@ public class TecnicoService {
 	public List<Tecnico> findAll() {
 		return this.repository.findAll();
 	}
+
+	public Tecnico create(Tecnico tecnico) {
+		return this.repository.save(tecnico);
+	}
+	
+	
 }
