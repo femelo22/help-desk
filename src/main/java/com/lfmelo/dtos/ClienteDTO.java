@@ -6,12 +6,10 @@ import java.util.stream.Collectors;
 
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.br.CPF;
-
 import com.lfmelo.enums.EPerfil;
 
-public class TecnicoDTO {
-	
+public class ClienteDTO {
+
 	@NotNull(message = "O campo NOME é requerido")
 	protected String nome;
 	
@@ -26,9 +24,9 @@ public class TecnicoDTO {
 	
 	protected Set<Integer> perfis = new HashSet<>();
 	
-	public TecnicoDTO() {
+	public ClienteDTO() {
 		super();
-		addPerfil(EPerfil.TECNICO);
+		addPerfil(EPerfil.CLIENTE);
 	}
 
 	public String getNome() {
@@ -70,8 +68,4 @@ public class TecnicoDTO {
 	public void addPerfil(EPerfil perfil) {
 		this.perfis.add(perfil.getCode());
 	}
-	
-	
-
-	
 }
