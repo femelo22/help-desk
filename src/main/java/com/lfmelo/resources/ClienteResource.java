@@ -20,11 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.lfmelo.domain.Cliente;
-import com.lfmelo.domain.Tecnico;
 import com.lfmelo.dtos.ClienteDTO;
-import com.lfmelo.dtos.TecnicoDTO;
 import com.lfmelo.services.ClienteService;
-import com.lfmelo.services.TecnicoService;
 
 @RestController
 @RequestMapping("/clientes")
@@ -33,7 +30,7 @@ public class ClienteResource {
 	@Autowired
 	ClienteService service;
 	
-	@GetMapping(value = "/{id}")
+	@GetMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<Cliente> findById(@PathVariable Integer id) {	
 		return ResponseEntity.ok().body(this.service.findById(id));

@@ -7,13 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lfmelo.domain.Cliente;
-import com.lfmelo.domain.Tecnico;
 import com.lfmelo.dtos.ClienteDTO;
-import com.lfmelo.dtos.TecnicoDTO;
 import com.lfmelo.exceptions.DataIntegrityViolationException;
 import com.lfmelo.exceptions.NotFoundException;
 import com.lfmelo.repositories.ClienteRepository;
-import com.lfmelo.repositories.TecnicoRepository;
 
 @Service
 public class ClienteService {
