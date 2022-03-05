@@ -3,6 +3,8 @@ package com.lfmelo.resources;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -42,7 +44,7 @@ public class TecnicoResource {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<Tecnico> create(@RequestBody TecnicoDTO dto) {
+	public ResponseEntity<Tecnico> create(@RequestBody @Valid TecnicoDTO dto) {
 		Tecnico tecnico = new Tecnico(dto);
 		this.service.validaCpfeEmail(tecnico);
 		Tecnico novoTecnico = this.service.create(tecnico);
