@@ -1,10 +1,10 @@
 package com.lfmelo.services;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -50,6 +50,10 @@ public class ChamadoService {
 			chamado.setId(dto.getId());
 		}
 		
+		if(dto.getStatus().equals(2)) {
+			chamado.setDataFechamento(LocalDate.now());
+		}
+		
 		chamado.setCliente(cliente);
 		chamado.setTecnico(tecnico);
 		chamado.setPrioridade(EPrioridade.toEnum(dto.getPrioridade()));
@@ -60,11 +64,11 @@ public class ChamadoService {
 		return chamado;
 	}
 
-	public void update(@Valid ChamadoDTO dto, Integer id) {
-		Chamado chamado = this.findById(id);
-		BeanUtils.copyProperties(dto, chamado);
-		chamado.setId(id);
-		this.repository.save(chamado);
+	public Chamado update(@Valid ChamadoDTO dto, Integer id) {
+			dto.setId(id);
+			Chamado oldObj = findById(id);
+			oldObj = newChamadoFromDto(dto);
+			return repository.save(oldObj);
 	}
 
 	public void delete(Integer id) {

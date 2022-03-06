@@ -53,10 +53,9 @@ public class ChamadoResource {
 	}
 	
 	@PutMapping("/{id}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<Chamado> update(@RequestBody @Valid ChamadoDTO dto, @PathVariable Integer id) {
-		this.service.update(dto, id);
-		return ResponseEntity.noContent().build();
+		return ResponseEntity.ok().body(this.service.update(dto, id));
 	}
 	
 	@DeleteMapping("/{id}")
