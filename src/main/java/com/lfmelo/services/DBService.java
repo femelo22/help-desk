@@ -3,6 +3,7 @@ package com.lfmelo.services;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.lfmelo.domain.Chamado;
@@ -26,17 +27,20 @@ public class DBService {
 
 	@Autowired
 	private ChamadoRepository chamadoRepository;
+	
+	@Autowired
+	private BCryptPasswordEncoder encoder;
 
 	
 	public void instanciaDB() {
 
-		Tecnico tec1 = new Tecnico(null, "Luiz Fernando", "69807858003", "tecluiz@gmail.com", "123");
+		Tecnico tec1 = new Tecnico(null, "Luiz Fernando", "69807858003", "tecluiz@gmail.com", encoder.encode("123"));
 		tec1.addPerfil(EPerfil.ADMIN);
 		
-		Tecnico tec2 = new Tecnico(null, "Polyana Naiane", "69807858043", "tecpoly@gmail.com", "12345");
+		Tecnico tec2 = new Tecnico(null, "Polyana Naiane", "69807858043", "tecpoly@gmail.com", encoder.encode("12345"));
 		tec1.addPerfil(EPerfil.TECNICO);
 
-		Cliente cli1 = new Cliente(null, "Linus Torval", "93664381050", "clientelinus@hotmail.com", "321");
+		Cliente cli1 = new Cliente(null, "Linus Torval", "93664381050", "clientelinus@hotmail.com", encoder.encode("321"));
 
 		Chamado chamado1 = new Chamado(null, EPrioridade.MEDIA, EStatus.ANDAMENTO, "Chamado 01", "Primeiro chamado",tec1, cli1);
 
