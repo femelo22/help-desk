@@ -58,11 +58,11 @@ public class ChamadoResource {
 		return ResponseEntity.ok().body(this.service.update(dto, id));
 	}
 	
-	@DeleteMapping("/{id}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public ResponseEntity<Chamado> delete(@PathVariable Integer id) {
-		this.service.delete(id);
-		return ResponseEntity.noContent().build();
-	}
+//	@DeleteMapping("/{id}")
+//	@ResponseStatus(HttpStatus.NO_CONTENT)
+//	public ResponseEntity<Chamado> delete(@PathVariable Integer id) {
+//		this.service.delete(id);
+//		return ResponseEntity.noContent().build();
+//	}
 	
 }
