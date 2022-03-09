@@ -1,12 +1,19 @@
 package com.lfmelo.security;
 
 import java.util.Collection;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.lfmelo.enums.EPerfil;
+
 public class UserSS implements UserDetails {
-	
+
+	private static final long serialVersionUID = 1L;
+	 	
 	private Integer id;
 	private String email;
 	private String senha;
@@ -14,13 +21,21 @@ public class UserSS implements UserDetails {
 	
 	
 	
+	public UserSS(Integer id, String email, String senha, Set<EPerfil> perfis) {
+		super();
+		this.id = id;
+		this.email = email;
+		this.senha = senha;
+		this.authorities = perfis.stream().map(x -> new SimpleGrantedAuthority(x.getDescription())).collect(Collectors.toSet());
+	}
+
 	public Integer getId() {
 		return id;
 	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return null;
+		return authorities;
 	}
 
 	@Override
