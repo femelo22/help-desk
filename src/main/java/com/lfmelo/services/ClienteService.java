@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.lfmelo.domain.Cliente;
@@ -18,6 +19,9 @@ public class ClienteService {
 	@Autowired
 	private ClienteRepository repository;
 	
+	@Autowired
+	private BCryptPasswordEncoder bCrypt;
+	
 	public Cliente findById(Integer id) {
 		return this.repository.findById(id).orElseThrow(() -> new NotFoundException("Objeto não encontrado de id " + id));
 	}
@@ -27,11 +31,13 @@ public class ClienteService {
 	}
 
 	public Cliente create(Cliente cliente) {
+		cliente.setSenha(bCrypt.encode(cliente.getSenha()));
 		return this.repository.save(cliente);
 	}
 
 	public void update(ClienteDTO dto, Integer id) {
 		Cliente cliente = this.findById(id); 
+		cliente.setSenha(bCrypt.encode(cliente.getSenha()));
 		BeanUtils.copyProperties(dto, cliente);
 		this.repository.save(cliente);
 	}
