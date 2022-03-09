@@ -9,7 +9,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 @Component
-public class JWTUtils {
+public class JWTUtil {
 	
 	@Value("${jwt.expiration}")
 	private Long expiration;
