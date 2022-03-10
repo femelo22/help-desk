@@ -2,6 +2,7 @@ package com.lfmelo.security;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -55,15 +56,31 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	@Override //sucesso na autenticação
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
 			Authentication authResult) throws IOException, ServletException {
-		// TODO Auto-generated method stub
-		super.successfulAuthentication(request, response, chain, authResult);
+		
+		String username = ((UserSS) authResult.getPrincipal()).getUsername();
+		String token = jwtUtil.generateToken(username);
+		response.setHeader("access-control-expose-headers", "Authorization");
+		response.setHeader("Authorization", "Bearer " + token);
+		
 	}
 	
 	@Override //erro na autenticação
 	protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException failed) throws IOException, ServletException {
-		// TODO Auto-generated method stub
-		super.unsuccessfulAuthentication(request, response, failed);
+
+		response.setStatus(401);
+		response.setContentType("application/json");
+		response.getWriter().append(json());
+	}
+	
+	private CharSequence json() {
+		long date = new Date().getTime();
+		return "{"
+				+ "\"timestamp\": " + date + ", " 
+				+ "\"status\": 401, "
+				+ "\"error\": \"Não autorizado\", "
+				+ "\"message\": \"Email ou senha inválidos\", "
+				+ "\"path\": \"/login\"}";
 	}
 	
 }
