@@ -49,7 +49,6 @@ public class ClienteResource {
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Cliente> create(@RequestBody @Valid ClienteDTO dto) {
 		Cliente cliente = new Cliente(dto);
-		this.service.validaCpfeEmail(cliente);
 		Cliente novoCliente = this.service.create(cliente);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(novoCliente.getId()).toUri();
 		return ResponseEntity.created(uri).build();
