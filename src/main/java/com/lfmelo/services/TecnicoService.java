@@ -37,7 +37,11 @@ public class TecnicoService {
 
 	public void update(TecnicoDTO dto, Integer id) {
 		Tecnico tecnico = this.findById(id);
-		tecnico.setSenha(bCrypt.encode(tecnico.getSenha()));
+		
+		if(!dto.getSenha().equals(tecnico.getSenha())) {
+			tecnico.setSenha(bCrypt.encode(tecnico.getSenha()));
+		}
+		
 		BeanUtils.copyProperties(dto, tecnico);
 		this.repository.save(tecnico);
 	}

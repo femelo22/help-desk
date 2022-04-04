@@ -37,7 +37,11 @@ public class ClienteService {
 
 	public void update(ClienteDTO dto, Integer id) {
 		Cliente cliente = this.findById(id); 
-		cliente.setSenha(bCrypt.encode(cliente.getSenha()));
+		
+		if(!dto.getSenha().equals(cliente.getSenha())) {
+			cliente.setSenha(bCrypt.encode(cliente.getSenha()));
+		}
+		
 		BeanUtils.copyProperties(dto, cliente);
 		this.repository.save(cliente);
 	}
