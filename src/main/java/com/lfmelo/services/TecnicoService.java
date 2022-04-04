@@ -31,6 +31,7 @@ public class TecnicoService {
 	}
 
 	public Tecnico create(Tecnico tecnico) {
+		this.validaCpfeEmail(tecnico);
 		tecnico.setSenha(bCrypt.encode(tecnico.getSenha()));
 		return this.repository.save(tecnico);
 	}

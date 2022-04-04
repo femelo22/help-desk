@@ -51,7 +51,6 @@ public class TecnicoResource {
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Tecnico> create(@RequestBody @Valid TecnicoDTO dto) {
 		Tecnico tecnico = new Tecnico(dto);
-		this.service.validaCpfeEmail(tecnico);
 		Tecnico novoTecnico = this.service.create(tecnico);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(novoTecnico.getId()).toUri();
 		return ResponseEntity.created(uri).build();

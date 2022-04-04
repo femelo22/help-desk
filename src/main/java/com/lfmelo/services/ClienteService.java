@@ -31,6 +31,7 @@ public class ClienteService {
 	}
 
 	public Cliente create(Cliente cliente) {
+		this.validaCpfeEmail(cliente);
 		cliente.setSenha(bCrypt.encode(cliente.getSenha()));
 		return this.repository.save(cliente);
 	}
