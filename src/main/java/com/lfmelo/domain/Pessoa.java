@@ -40,7 +40,7 @@ public abstract class Pessoa implements Serializable {
 	
 	@ElementCollection(fetch = FetchType.EAGER) //assegura que a lista de perfis virá junto ao usuário
 	@CollectionTable(name = "TB_PERFIS")
-	protected Set<Integer> perfis = new HashSet<>();
+	protected Set<String> perfis = new HashSet<>();
 	
 	@Column(name = "data_criacao")
 	@JsonFormat(pattern = "dd/MM/yyyy")
@@ -106,7 +106,7 @@ public abstract class Pessoa implements Serializable {
 	}
 
 	public void addPerfil(EPerfil perfil) {
-		this.perfis.add(perfil.getCode());
+		this.perfis.add(perfil.getDescription());
 	}
 
 	public LocalDate getDataCriacao() {

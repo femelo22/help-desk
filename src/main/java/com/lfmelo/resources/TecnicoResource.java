@@ -2,6 +2,7 @@ package com.lfmelo.resources;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -32,15 +33,16 @@ public class TecnicoResource {
 	TecnicoService service;
 	
 	@GetMapping(value = "/{id}")
-	@ResponseStatus(HttpStatus.OK)
-	public ResponseEntity<Tecnico> findById(@PathVariable Integer id) {	
-		return ResponseEntity.ok().body(this.service.findById(id));
+	public ResponseEntity<TecnicoDTO> findById(@PathVariable Integer id) {
+		Tecnico obj = service.findById(id);
+		return ResponseEntity.ok().body(new TecnicoDTO(obj));
 	}
 	
 	@GetMapping
-	@ResponseStatus(HttpStatus.OK)
-	public ResponseEntity<List<Tecnico>> findAll() {
-		return ResponseEntity.ok().body(this.service.findAll());
+	public ResponseEntity<List<TecnicoDTO>> findAll() {
+		List<Tecnico> list = service.findAll();
+		List<TecnicoDTO> listDTO = list.stream().map(obj -> new TecnicoDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDTO);
 	}
 	
 	

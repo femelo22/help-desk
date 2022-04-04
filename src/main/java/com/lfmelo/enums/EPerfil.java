@@ -32,13 +32,13 @@ public enum EPerfil {
 	}
 	
 	
-	public static EPerfil toEnum(Integer code) {
-		if(code == null) {
+	public static EPerfil toEnum(String descricao) {
+		if(descricao == null) {
 			return null;
 		}
 		
 		for(EPerfil perfil: EPerfil.values()) {
-			if(code.equals(perfil.getCode())) {
+			if(descricao.equals(perfil.getDescription())) {
 				return perfil;
 			}
 		}

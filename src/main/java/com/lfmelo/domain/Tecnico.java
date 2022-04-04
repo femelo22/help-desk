@@ -14,9 +14,9 @@ import com.lfmelo.enums.EPerfil;
 @Entity
 public class Tecnico extends Pessoa {
 	private static final long serialVersionUID = 1L;
-	
-	@OneToMany(mappedBy = "tecnico")
+
 	@JsonIgnore
+	@OneToMany(mappedBy = "tecnico")
 	private List<Chamado> chamados = new ArrayList<>();
 
 	public Tecnico() {
@@ -31,12 +31,13 @@ public class Tecnico extends Pessoa {
 	
 	public Tecnico(TecnicoDTO obj) {
 		super();
+		this.id = obj.getId();
 		this.nome = obj.getNome();
 		this.cpf = obj.getCpf();
 		this.email = obj.getEmail();
 		this.senha = obj.getSenha();
-		this.perfis = obj.getPerfis().stream().map(x -> x.getCode()).collect(Collectors.toSet());
-		addPerfil(EPerfil.TECNICO);
+		this.perfis = obj.getPerfis().stream().map(x -> x.getDescription()).collect(Collectors.toSet());
+		this.dataCriacao = obj.getDataCriacao();
 	}
 
 	public List<Chamado> getChamados() {
@@ -46,6 +47,5 @@ public class Tecnico extends Pessoa {
 	public void setChamados(List<Chamado> chamados) {
 		this.chamados = chamados;
 	}
-	
 
 }
