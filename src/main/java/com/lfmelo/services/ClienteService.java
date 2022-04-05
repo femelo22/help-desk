@@ -49,6 +49,11 @@ public class ClienteService {
 
 	public void delete(Integer id) {
 		Cliente cliente = this.findById(id);
+		
+		if (cliente.getChamados().size() > 0) {
+			throw new DataIntegrityViolationException("Cliente possui ordens de serviço e não pode ser deletado!");
+		}
+		
 		this.repository.delete(cliente);
 	}
 	
