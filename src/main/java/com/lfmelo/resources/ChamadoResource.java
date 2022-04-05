@@ -2,13 +2,13 @@ package com.lfmelo.resources;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,14 +32,17 @@ public class ChamadoResource {
 
 	@GetMapping()
 	@ResponseStatus(HttpStatus.OK)
-	public ResponseEntity<List<Chamado>> findAll() {
-		return ResponseEntity.ok().body(this.service.findAll());
+	public ResponseEntity<List<ChamadoDTO>> findAll() {
+		List<Chamado> chamados = this.service.findAll();
+		List<ChamadoDTO> dtos = chamados.stream().map(x -> new ChamadoDTO(x)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(dtos);
 	}
 	
 	@GetMapping(value = "/{id}")
 	@ResponseStatus(HttpStatus.OK)
-	public ResponseEntity<Chamado> findById(@PathVariable Integer id) {
-		return ResponseEntity.ok().body(this.service.findById(id));
+	public ResponseEntity<ChamadoDTO> findById(@PathVariable Integer id) {
+		Chamado chamado = this.service.findById(id);
+		return ResponseEntity.ok().body(new ChamadoDTO(chamado));
 	}
 	
 	@PostMapping
