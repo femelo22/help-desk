@@ -31,13 +31,13 @@ public enum EStatus {
 		this.description = description;
 	}
 	
-	public static EStatus toEnum(Integer code) {
-		if(code == null) {
+	public static EStatus toEnum(String descricao) {
+		if(descricao == null) {
 			return null;
 		}
 		
 		for(EStatus status: EStatus.values()) {
-			if(code.equals(status.getCode())) {
+			if(descricao.equals(status.getDescription())) {
 				return status;
 			}
 		}

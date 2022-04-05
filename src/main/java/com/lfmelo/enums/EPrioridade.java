@@ -32,13 +32,13 @@ public enum EPrioridade {
 	}
 	
 	
-	public static EPrioridade toEnum(Integer code) {
-		if(code == null) {
+	public static EPrioridade toEnum(String descricao) {
+		if(descricao == null) {
 			return null;
 		}
 		
 		for(EPrioridade prioridade: EPrioridade.values()) {
-			if(code.equals(prioridade.getCode())) {
+			if(descricao.equals(prioridade.getDescription())) {
 				return prioridade;
 			}
 		}
